@@ -4,9 +4,14 @@ export class RestaurantMenuIframe {
     
     readonly page:Page;
     readonly frame:FrameLocator;
+    subFrame:FrameLocator;
+    menuFrame:FrameLocator;
     readonly menu:Locator;
     readonly iframeContainer:Locator;
-    menuItems = [
+    mainMenu = [
+        'Pizza', 'Burgers', 'Snacks & Sides', 'Salads', 'Drinks'
+    ];
+    mainMenuItems = [
         'La Rossa',
         'Margherita',
         'Burrata',
@@ -19,10 +24,19 @@ export class RestaurantMenuIframe {
     
     constructor(page: Page) {
         this.page = page;
-        this.frame = page.frameLocator('iframe.application-demo-new-dashboard-iframe iframe iframe.Preview__Frame-sc-pnzhxw-0.ghxNdZ');
+        this.frame = page.frameLocator('iframe.application-demo-new-dashboard-iframe');
         this.iframeContainer = page.locator('.application-demo-new-dashboard-iframe-container');
         this.menu = page.locator('.ItemLayoutTwo__NameContainer-sc-1w7r2g7-3');
-        
+    }
+
+    async getSubFrame(){
+        this.subFrame = await this.frame.frameLocator('iframe:nth-of-type(1)');
+        return this.subFrame;
+    }
+    async getMenuFrame(){
+        this.subFrame = await this.frame.frameLocator('iframe:nth-of-type(1)');
+        this.menuFrame = await this.subFrame.frameLocator('iframe:nth-of-type(1)');
+        return this.menuFrame;
     }
 
     async scrollToIframe(){
@@ -30,16 +44,10 @@ export class RestaurantMenuIframe {
         await this.iframeContainer.click(); // necessary to activate the iframe
     }
     async menuIfrmae(){
-        const data = await this.frame.frameLocator('iframe');
-        const data2 = await data.frameLocator('iframe.Preview__Frame-sc-pnzhxw-0.ghxNdZ')
-
-
-        
-        // await this.page.waitForTimeout(5000);
-        // const result = await data2.locator('.Name__NameComponent-sc-6egqc9-0.iVkdyv').evaluate( (e) => {
-        //     e.map(item => item.textContent?.trim());
-        // });
-        // console.log(result);
+        const menuFrame = await this.getMenuFrame();
+        await menuFrame.locator('.TabsControlItem__Name-sc-u0xhvn-0').nth(0).waitFor({ state:"attached", timeout:3000 });
+        const menuOptions = await menuFrame.locator('.TabsControlItem__Name-sc-u0xhvn-0').allTextContents();
+        expect(menuOptions).toEqual(this.mainMenu);
     }
 
 }

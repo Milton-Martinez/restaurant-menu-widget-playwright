@@ -10,7 +10,6 @@ test.describe('Assessing Iframe Options', () => {
   });
 
   test('Pizza Menu', async () => {
-    console.log('pasamos aqui 1');
     await frame.scrollToIframe();
     await frame.menuIfrmae();
   });
