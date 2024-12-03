@@ -43,11 +43,17 @@ export class RestaurantMenuIframe {
         await this.iframeContainer.scrollIntoViewIfNeeded();
         await this.iframeContainer.click(); // necessary to activate the iframe
     }
-    async menuIfrmae(){
+    async foodMenuIfrmae(){
         const menuFrame = await this.getMenuFrame();
         await menuFrame.locator('.TabsControlItem__Name-sc-u0xhvn-0').nth(0).waitFor({ state:"attached", timeout:3000 });
         const menuOptions = await menuFrame.locator('.TabsControlItem__Name-sc-u0xhvn-0').allTextContents();
         expect(menuOptions).toEqual(this.mainMenu);
+    }
+    async specialtyMenuIframe(){
+        const menuFrame = await this.getMenuFrame();
+        await menuFrame.locator('.Name__NameComponent-sc-6egqc9-0').nth(0).waitFor({ state:"attached", timeout:5000 });
+        const menuOptions = await menuFrame.locator('.Name__NameComponent-sc-6egqc9-0').allTextContents();
+        expect(menuOptions).toEqual(this.mainMenuItems);
     }
 
 }

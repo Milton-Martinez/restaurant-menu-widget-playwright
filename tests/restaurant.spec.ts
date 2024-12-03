@@ -9,8 +9,12 @@ test.describe('Assessing Iframe Options', () => {
     await page.goto('https://elfsight.com/restaurant-menu-widget/iframe/');
   });
 
-  test('Pizza Menu', async () => {
+  test('Foods Menu', async () => {;
     await frame.scrollToIframe();
-    await frame.menuIfrmae();
+    await frame.foodMenuIfrmae();
+  });
+  test.only('Specialty Menu', async () => {
+    await frame.scrollToIframe();
+    await frame.specialtyMenuIframe();
   });
 });
