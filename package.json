@@ -1,0 +1,16 @@
+{
+  "name": "restaurant-menu-widget(iframe)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test:menu":"npx playwright test --headed --project=chromium"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.1"
+  }
+}
