@@ -13,7 +13,7 @@ test.describe('Assessing Iframe Options', () => {
     await frame.scrollToIframe();
     await frame.foodMenuIfrmae();
   });
-  test.only('Specialty Menu', async () => {
+  test('Specialty Menu', async () => {
     await frame.scrollToIframe();
     await frame.specialtyMenuIframe();
   });
